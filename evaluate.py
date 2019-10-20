@@ -5,8 +5,8 @@ import csv
 
 
 # Calculate the scores of both agents
-random_agent_scores = randomagent.randomagent(prints=True)
-q_agent_scores = taxiagent.taxiagent(prints=True)
+random_agent_scores = randomagent.randomagent(verbose=True)
+q_agent_scores = taxiagent.taxiagent(verbose=True)
 
 
 # Save the scores of both agents as csv

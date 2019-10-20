@@ -4,12 +4,12 @@ import numpy as np
 import random
 
 
-def taxiagent(prints=False):
+def taxiagent(verbose=False):
     # List of all scores
     scores = []
     
     # Creating the gym environment
-    env = gym.make("Taxi-v2")
+    env = gym.make("Taxi-v3")
 
     # Initializing the Q-table of size state-space x action-space with zeros
     Q = np.zeros((env.observation_space.n, env.action_space.n))
@@ -30,7 +30,7 @@ def taxiagent(prints=False):
         score = 0
 
         for _ in range(max_steps):
-            # With the probabilty of (1 - epsilon) take the best action in our Q-table
+            # With the probabilty of (1 - epsilon) take the best action in the Q-table
             if random.uniform(0, 1) > epsilon:
                 action = np.argmax(Q[state, :])
             # Else take a random action
@@ -43,7 +43,7 @@ def taxiagent(prints=False):
             # Add up the score
             score += reward
 
-            # Update our Q-table with our Q-function
+            # Update the Q-table with the Q-function
             Q[state, action] = (1 - learning_rate) * Q[state, action] + learning_rate * (reward + gamma * np.max(Q[next_state,:]))
 
             # Set the next state as the current state
@@ -52,17 +52,17 @@ def taxiagent(prints=False):
             if done:
                 break
         
-        # Reducing our epsilon each episode (Exploration-Exploitation trade-off)
+        # Reducing the epsilon each episode (Exploration-Exploitation trade-off)
         if epsilon >= epsilon_min:
             epsilon *= epsilon_decay
 
         scores.append(score)
         
-        if prints:
+        if verbose:
             print("Episode: {}/{}, score: {}".format(episode+1, episodes, score))
     
     return scores
 
 
 if __name__ == "__main__":
-    taxiagent(prints=True)
+    taxiagent(verbose=True)

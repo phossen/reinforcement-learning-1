@@ -4,12 +4,12 @@ import numpy as np
 import random
 
 
-def randomagent(prints=False):
+def randomagent(verbose=False):
     # Initializing the list of scores
     scores = []
     
     # Creating the gym environment
-    env = gym.make("Taxi-v2")
+    env = gym.make("Taxi-v3")
 
     # Amount of games the agent plays
     episodes = 50000
@@ -32,11 +32,11 @@ def randomagent(prints=False):
                 break
         
         scores.append(score)
-        if prints:
+        if verbose:
             print("Episode: {}/{}, score: {}".format(episode+1, episodes, score))
 
     return scores
 
 
 if __name__ == "__main__":
-    randomagent(prints=True)
+    randomagent(verbose=True)
